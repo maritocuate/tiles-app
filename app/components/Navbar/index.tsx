@@ -9,11 +9,18 @@ import {
 } from '@material-tailwind/react'
 import { AiFillFire } from 'react-icons/ai'
 import { MdOutlineWatchLater } from 'react-icons/md'
+import { SafeUser } from '@/app/types'
 
 import Container from "../Container"
 import UserMenu from './UserMenu'
 
-const Navbar = () => {
+interface NavbarProps {
+    currentUser?: SafeUser | null
+}
+
+const Navbar: React.FC<NavbarProps> = ({
+    currentUser
+}) => {
     return (
         <div className={`fixed w-full z-10 shadow-sm ${styles.container}`}>
             <div className="py-4">
@@ -32,7 +39,7 @@ const Navbar = () => {
                             </TabsHeader>
                         </Tabs>
                         
-                        <UserMenu />
+                        <UserMenu currentUser={currentUser} />
                     </div>
                 </Container>
             </div>
