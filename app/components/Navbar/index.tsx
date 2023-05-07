@@ -7,11 +7,11 @@ import {
     TabsHeader,
     Tab
 } from '@material-tailwind/react'
-import { BiLogInCircle } from 'react-icons/bi'
 import { AiFillFire } from 'react-icons/ai'
 import { MdOutlineWatchLater } from 'react-icons/md'
 
 import Container from "../Container"
+import UserMenu from './UserMenu'
 
 const Navbar = () => {
     return (
@@ -32,7 +32,7 @@ const Navbar = () => {
                             </TabsHeader>
                         </Tabs>
                         
-                        <div><BiLogInCircle size={25} /></div>
+                        <UserMenu />
                     </div>
                 </Container>
             </div>
