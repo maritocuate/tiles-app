@@ -89,7 +89,7 @@ const RegisterModal = () => {
             actionLabel='Close'
             onClose={registerModal.onClose}
             body={bodyContent}
-            onSubmit={registerModal.onClose}
+            onSubmit={()=>{}}
             footer={footerContent}
         />
     )
