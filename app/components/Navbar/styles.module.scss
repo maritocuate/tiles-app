@@ -1,0 +1,10 @@
+@import '../../variables.module';
+
+
+.container {
+    background-image: $secondary-gradient;
+    .title {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}
