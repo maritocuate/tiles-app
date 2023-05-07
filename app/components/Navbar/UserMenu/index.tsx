@@ -24,7 +24,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                             size={25}
                         />
                         <BiLogOutCircle 
-                            onClick={signOut}
+                            onClick={() => signOut}
                             size={25}
                         />
                     </div>
