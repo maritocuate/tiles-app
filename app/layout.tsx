@@ -3,6 +3,7 @@ import { Nunito } from 'next/font/google'
 
 import Navbar from './components/Navbar'
 import LoginModal from './components/Modal/LoginModal'
+import RegisterModal from './components/Modal/RegisterModal'
 import ToasterProvider from './components/providers/ToasterProvider'
 
 import getCurrentUser from './actions/getCurrentUsers'
@@ -26,6 +27,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ToasterProvider />
+        <RegisterModal />
         <LoginModal />
         <Navbar />
         {children}
