@@ -1,7 +1,6 @@
 'use client'
 
 import axios from 'axios'
-import { AiFillGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
 import { useCallback, useState } from 'react'
 import {
@@ -14,7 +13,6 @@ import { toast } from 'react-hot-toast'
 import useRegisterModal from '../../hooks/useRegisterModal'
 import useLoginModal from '../../hooks/useLoginModal'
 import Modal from '..'
-import Input from '../../inputs/input'
 import Button from '../../Button'
 import { signIn } from 'next-auth/react'
 
@@ -57,31 +55,12 @@ const RegisterModal = () => {
     }, [loginModal , registerModal]) 
 
     const bodyContent = (
-        <div className="flex flex-col gap-4">
-            <Input
-                id='email'
-                label='Email'
-                disabled={loading}
-                register={register}
-                errors={errors}
-                required
-            />
-            <Input
-                id='name'
-                label='Name'
-                disabled={loading}
-                register={register}
-                errors={errors}
-                required
-            />
-            <Input
-                id='password'
-                label='Password'
-                type='password'
-                disabled={loading}
-                register={register}
-                errors={errors}
-                required
+        <div className="flex flex-col mt-6">
+            <Button
+                outline
+                label='Continue with Google'
+                icon={FcGoogle}
+                onClick={() => signIn('google')}
             />
         </div>
     )
@@ -107,10 +86,10 @@ const RegisterModal = () => {
             disabled={loading}
             isOpen={registerModal.isOpen}
             title='Register'
-            actionLabel='Continue'
+            actionLabel='Close'
             onClose={registerModal.onClose}
             body={bodyContent}
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={registerModal.onClose}
             footer={footerContent}
         />
     )
