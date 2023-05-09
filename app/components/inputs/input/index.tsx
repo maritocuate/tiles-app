@@ -6,11 +6,14 @@ import {
     UseFormRegister
 } from 'react-hook-form'
 import { BiDollar } from 'react-icons/bi'
+import { Input as InputMaterial } from '@material-tailwind/react'
+import { toast } from 'react-hot-toast'
 
 interface InputProps {
     id: string
     label: string
     type?: string
+    maxLength?: number
     disabled?: boolean
     formatPrice?: boolean
     required?: boolean
@@ -22,6 +25,7 @@ const Input: React.FC<InputProps> = ({
     id,
     label,
     type = 'text',
+    maxLength,
     disabled,
     formatPrice,
     required,
@@ -40,23 +44,16 @@ const Input: React.FC<InputProps> = ({
                     left-2
                 "/>
             )}
-            <input
+
+            <InputMaterial
                 id={id}
+                label={label}
+                maxLength={maxLength}
                 disabled={disabled}
                 {...register(id, { required })}
                 placeholder=" "
                 type={type}
                 className={`
-                    peer
-                    w-full
-                    p-4
-                    pt-6 
-                    font-light 
-                    bg-white 
-                    border-2
-                    rounded-md
-                    outline-none
-                    transition
                     disabled:opacity-70
                     disabled:cursor-not-allowed
                     ${formatPrice ? 'pl-9' : 'pl-4'}
@@ -64,26 +61,6 @@ const Input: React.FC<InputProps> = ({
                     ${errors[id] ? 'focus:border-rose-500' : 'focus:border-black'}
                 `}
             />
-            <label 
-                className={`
-                    absolute 
-                    text-md
-                    duration-150 
-                    transform 
-                    -translate-y-3 
-                    top-5 
-                    z-10 
-                    origin-[0] 
-                    ${formatPrice ? 'left-9' : 'left-4'}
-                    peer-placeholder-shown:scale-100 
-                    peer-placeholder-shown:translate-y-0 
-                    peer-focus:scale-75
-                    peer-focus:-translate-y-4
-                    ${errors[id] ? 'text-rose-500' : 'text-zinc-400'}
-                `}
-            >
-                {label}
-            </label>
         </div>
     )
 }

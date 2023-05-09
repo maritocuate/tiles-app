@@ -1,12 +1,18 @@
 'use client'
 
-import { useState } from 'react'
-
-import useUploadModal from '../../hooks/useUploadModal'
+import { useState, useCallback } from 'react'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 import Modal from '..'
+import useUploadModal from '../../hooks/useUploadModal'
 import ImageUpload from '../../inputs/imageUpload'
-import { FieldValues, useForm } from 'react-hook-form'
-import { Input, Select, Option } from '@material-tailwind/react'
+import Input from '../../inputs/input'
+import {
+    FieldValues,
+    SubmitHandler,
+    useForm
+} from 'react-hook-form'
+import InputSelect from '../../inputs/inputSelect'
 
 const UploadModal = () => {
     const uploadModal = useUploadModal()
@@ -20,26 +26,26 @@ const UploadModal = () => {
     ]
 
     const {
+        handleSubmit,
+        register,
         setValue,
         watch,
+        control,
         formState: {
             errors
-        }
+        },
+        reset
     } = useForm<FieldValues>({
         defaultValues: {
             category: '',
-            location: null,
-            guestCount: 1,
-            roomCount: 1,
-            bathroomCount: 1,
             imageSrc: '',
-            price: 1,
             title: '',
             description: ''
         },
     })
 
     const imageSrc = watch('imageSrc')
+
 
     const setCustomValues = (id:string, value:any) => {
         setValue(id, value, {
@@ -49,26 +55,61 @@ const UploadModal = () => {
         })
     }
 
+    const onSubmit: SubmitHandler<FieldValues> = data => {
+        console.log(data)
+        for(const prop in data) {
+            if(!data[prop]) {
+                toast.error('All fields are required')
+                return
+            } 
+        }
+        
+        setLoading(true)
+        axios.post('../../api/post', data)
+            .then(() => {
+                toast.success('Success!')
+                uploadModal.onClose()
+            })
+            .catch(error => {
+                toast.error('Something went wrong')
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+    }
+
     const bodyContent = (
         <div className="flex flex-col gap-5">
             <Input
-                label="Title"
-                color="purple"
+                id='title'
+                label='Title'
+                type='string'
+                maxLength={30}
+                disabled={loading}
+                formatPrice={false}
+                register={register}
+                errors={errors}
+                required
             />
             <Input
-                label="Description"
-                color="purple"
+                id='description'
+                label='Description'
+                type='string'
+                maxLength={60}
+                disabled={loading}
+                formatPrice={false}
+                register={register}
+                errors={errors}
+                required
             />
-            <Select
-                label="Category"
-                color="purple"
-            >
-                {categories.map(item => (
-                    <Option key={item}>
-                        {item}
-                    </Option>
-                ))}
-            </Select>
+            <InputSelect
+                id='category'
+                label='Category'
+                options={categories}
+                control={control}
+                register={register}
+                errors={errors}
+            />
             <ImageUpload
                 value={imageSrc}
                 onChange={value =>  setCustomValues('imageSrc', value)}
@@ -84,7 +125,7 @@ const UploadModal = () => {
             actionLabel='Post'
             onClose={uploadModal.onClose}
             body={bodyContent}
-            onSubmit={uploadModal.onClose}
+            onSubmit={handleSubmit(onSubmit)}
         />
     )
 }
