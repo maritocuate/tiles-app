@@ -63,13 +63,11 @@ const UploadModal = () => {
                 label="Category"
                 color="purple"
             >
-                {
-                    categories.map(item => (
-                        <Option>
-                            {item}
-                        </Option>
-                    ))
-                }
+                {categories.map(item => (
+                    <Option key={item}>
+                        {item}
+                    </Option>
+                ))}
             </Select>
             <ImageUpload
                 value={imageSrc}
