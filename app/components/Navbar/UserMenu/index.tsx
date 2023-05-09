@@ -5,6 +5,7 @@ import { FaCloudUploadAlt } from 'react-icons/fa'
 import { signOut } from 'next-auth/react'
 import { SafeUser } from '@/app/types'
 import useLoginModal from '../../hooks/useLoginModal'
+import useUploadModal from '../../hooks/useUploadModal'
 
 interface UserMenuProps {
     currentUser?: SafeUser | null
@@ -14,6 +15,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
     currentUser
 }) => {
     const loginModal = useLoginModal()
+    const uploadModal = useUploadModal()
 
     return(
         <div className="relative">
@@ -21,6 +23,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 {currentUser ? (
                     <div className='flex gap-4'>
                         <FaCloudUploadAlt
+                            onClick={uploadModal.onOpen}
                             size={25}
                         />
                         <BiLogOutCircle 
