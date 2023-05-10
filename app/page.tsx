@@ -1,7 +1,9 @@
-import Container from "./components/Container"
 import getPosts, { 
   IPostsParams
 } from './actions/getPosts'
+import Container from "./components/Container"
+import PostCard from "./components/posts/PostCard"
+import getCurrentUser from "./actions/getCurrentUsers"
 
 interface HomeProps {
   searchParams: IPostsParams
@@ -9,6 +11,7 @@ interface HomeProps {
 
 export default async function Home({ searchParams }: HomeProps) {
   const posts = await getPosts(searchParams)
+  const currentUser = await getCurrentUser()
 
   return (
     <Container>
@@ -22,14 +25,16 @@ export default async function Home({ searchParams }: HomeProps) {
           lg:grid-cols-4
           xl:grid-cols-5
           2xl:grid-cols-6
-          gap-8
+          gap-2
         "
       >
         {
           posts.map((post:any) => (
-            <div key={post.id}>
-              {post.title}
-            </div>
+            <PostCard
+              key={post.id}
+              currentUser={currentUser}
+              data={post}
+            />
           ))
         }
       </div>
