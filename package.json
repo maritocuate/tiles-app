@@ -7,7 +7,9 @@
     "postinstall": "prisma generate",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.17",
@@ -36,8 +38,16 @@
     "zustand": "^4.3.8"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^7.0.10",
+    "@storybook/addon-interactions": "^7.0.10",
+    "@storybook/addon-links": "^7.0.10",
+    "@storybook/blocks": "^7.0.10",
+    "@storybook/nextjs": "^7.0.10",
+    "@storybook/react": "^7.0.10",
+    "@storybook/testing-library": "^0.0.14-next.2",
     "@types/bcrypt": "^5.0.0",
     "prisma": "^4.13.0",
-    "sass": "^1.62.1"
+    "sass": "^1.62.1",
+    "storybook": "^7.0.10"
   }
 }
