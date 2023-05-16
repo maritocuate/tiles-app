@@ -40,7 +40,6 @@ const PostCard: React.FC<PostCardProps> = ({
             onClick={() => router.push(`/posts/${data.id}`)}
             className="
                 col-span-1
-                cursor-pointer
                 group"
             >
             <div className="flex flex-col justify-center w-full">
@@ -57,8 +56,7 @@ const PostCard: React.FC<PostCardProps> = ({
                         className="
                             object-contain 
                             h-auto 
-                            w-auto 
-                            group-hover:scale-105
+                            w-auto
                             transition
                         "
                         src={data.imageSrc}
