@@ -13,10 +13,12 @@ import {
     useForm
 } from 'react-hook-form'
 import InputSelect from '../../inputs/inputSelect'
+import { useRouter } from 'next/navigation'
 
 const UploadModal = () => {
     const uploadModal = useUploadModal()
     const [loading, setLoading] = useState(false)
+    const router = useRouter()
 
     const categories = [
         'Humor',
@@ -56,7 +58,6 @@ const UploadModal = () => {
     }
 
     const onSubmit: SubmitHandler<FieldValues> = data => {
-        console.log(data)
         for(const prop in data) {
             if(!data[prop]) {
                 toast.error('All fields are required')
@@ -69,6 +70,7 @@ const UploadModal = () => {
             .then(() => {
                 toast.success('Success!')
                 uploadModal.onClose()
+                router.refresh()
             })
             .catch(error => {
                 toast.error('Something went wrong')
