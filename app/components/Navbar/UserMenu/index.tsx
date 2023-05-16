@@ -18,7 +18,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
     const uploadModal = useUploadModal()
 
     return(
-        <div className="relative">
+        <div className="flex items-center justify-end relative">
             <div className="flex flex-col cursor-pointer">
                 {currentUser ? (
                     <div className='flex gap-4'>
