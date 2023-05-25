@@ -6,6 +6,7 @@ import { Post } from "@prisma/client"
 import { useRouter } from "next/navigation"
 import { useCallback, useMemo } from "react"
 import Button from "../../Button"
+import LikeButton from "../../LikeButton"
 
 interface PostCardProps {
     data: SafePosts
@@ -67,7 +68,13 @@ const PostCard: React.FC<PostCardProps> = ({
                 <div className="flex px-4 py-1 bg-white/80 rounded-b-md bottom-7 relative">
                     {
                         !reservation && (
-                            <div className="font-light text-sm">{data.title}</div>
+                            <div className="font-light text-sm flex justify-between w-full">
+                                <span>{data.title}</span>
+                                <LikeButton
+                                    postId={data.id}
+                                    currentUser={currentUser}
+                                />
+                            </div>
                         )
                     }
                 </div>
